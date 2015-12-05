@@ -1,2 +1,2 @@
 # Base_IP_calculator
-Simple base ip calculator using Python.  Just run the script ;)
+Simple base IP calculator using Python.  Just run the script ;)
