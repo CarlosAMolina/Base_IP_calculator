@@ -15,13 +15,13 @@ def listInt2Bin(listInt):
     listBin.append(bin(listInt[3]))
     return listBin        #  listBin=[0,1,10,11]
 
-# def ipANDmac(ip, masc):    # AND operator at each bit of int elements of lists 
-#     ipAndMac = []
-#     ipAndMac.append(ip[0]&masc[0])
-#     ipAndMac.append(ip[1]&masc[1])
-#     ipAndMac.append(ip[2]&masc[2])
-#     ipAndMac.append(ip[3]&masc[3])
-#     return ipAndMac
+# def ipANDmasc(ip, masc):    # AND operator at each bit of int elements of lists 
+#     ipAndMasc = []
+#     ipAndMasc.append(ip[0]&masc[0])
+#     ipAndMasc.append(ip[1]&masc[1])
+#     ipAndMasc.append(ip[2]&masc[2])
+#     ipAndMasc.append(ip[3]&masc[3])
+#     return ipAndMasc
 
 def bits2cero4Base(numeroConvertir,numBits2cero):
     # converts to 0 x number of bits of numeroConvertir starting at rigth (x=numBits2cero)
@@ -80,23 +80,23 @@ def makeBroadcast(ip, bits4hosts): # ipBase[=]list
 def list2string(List):
     return '%s.%s.%s.%s' %(List[0],List[1],List[2],List[3])
 
-def bits4hostsInAPart(macPart):    #mac=part0.part1.part2.part3, each part = 8bits
+def bits4hostsInAPart(mascPart):    #masc=part0.part1.part2.part3, each part = 8bits
     hostsBits = 0
     multi = 1    # searchs 0's at masc
     while (len(bin(multi))-2)<=8:    # bin(multi)='0b..'
-        if macPart&multi==0:
+        if mascPart&multi==0:
             hostsBits += 1
         else:
             return hostsBits
         multi = multi << 1
     return hostsBits
 
-def bits4hosts(macList):     #mac=part0.part1.part2.part3, each part = 8bits
-    macPart = 3
-    hostsBits = bits4hostsInAPart(macList[macPart])
-    while hostsBits%8 == 0 and macPart>0:
-        macPart -= 1
-        hostsBits += bits4hostsInAPart(macList[macPart])
+def bits4hosts(mascList):     #masc=part0.part1.part2.part3, each part = 8bits
+    mascPart = 3
+    hostsBits = bits4hostsInAPart(mascList[mascPart])
+    while hostsBits%8 == 0 and mascPart>0:
+        mascPart -= 1
+        hostsBits += bits4hostsInAPart(mascList[mascPart])
     return hostsBits
 
 import sys
@@ -115,15 +115,15 @@ while sintaxisOK == False:
 ipList = str2list(ip)
 mascList = str2list(masc)
 ipBin = listInt2Bin(ipList)
-macBin = listInt2Bin(mascList)
+mascBin = listInt2Bin(mascList)
 bits4Hosts = bits4hosts(mascList)
 masc = 32-bits4Hosts
-ipBaseList = makeBase(ipList,bits4Hosts) #ipBaseList = ipANDmac(ipList,mascList)
+ipBaseList = makeBase(ipList,bits4Hosts) #ipBaseList = ipANDmasc(ipList,mascList)
 ipBroadcastList = makeBroadcast(ipList,bits4Hosts) 
 ipBase = list2string(ipBaseList)
 ipBroadcast = list2string(ipBroadcastList)
 # print 'ip: ' + str(ip)
-# print 'mac: ' + str(mac)
+# print 'masc: ' + str(masc)
 # print 'ip base: '+str(ipBase)
 # print 'bits4Hosts :' + str(bits4Hosts)
 print 'ip_base/masc: '+ str(ipBase) +'/'+str(masc)
