@@ -28,7 +28,7 @@ def bits2one4Broadcast(numeroConvertir,numBits2one):
     numeroConvertir = int(str(numeroConvertir),2) # from binary to decimal
     return numeroConvertir
 
-def makeBase(ip, bits4hosts): # ipBase[=]list
+def makeBase(ip, bits4hosts): # ip[=]list
     ipBase=list(ip)
     if bits4hosts<=8:
         ipBase[3]=bits2cero4Base(ip[3],bits4hosts)
@@ -46,22 +46,22 @@ def makeBase(ip, bits4hosts): # ipBase[=]list
         ipBase[0]=bits2cero4Base(ip[0],bits4hosts-24)
     return ipBase
 
-def makeBroadcast(ip, bits4hosts): # ipBase[=]list
+def makeBroadcast(ip, bits4hosts): # ip[=]list
     ipBroadcast=list(ip)
     if bits4hosts<=8:
         ipBroadcast[3]=bits2one4Broadcast(ip[3],bits4hosts)
     elif bits4hosts<=16:
-        ipBroadcast[3]=bits2one4Broadcast(ipBase[3],8)
-        ipBroadcast[2]=bits2one4Broadcast(ipBase[2],bits4hosts-8)
+        ipBroadcast[3]=bits2one4Broadcast(ip[3],8)
+        ipBroadcast[2]=bits2one4Broadcast(ip[2],bits4hosts-8)
     elif bits4hosts<=24:
-        ipBroadcast[3]=bits2one4Broadcast(ipBase[3],8)
-        ipBroadcast[2]=bits2one4Broadcast(ipBase[2],8)
-        ipBroadcast[1]=bits2one4Broadcast(ipBase[1],bits4hosts-16)
+        ipBroadcast[3]=bits2one4Broadcast(ip[3],8)
+        ipBroadcast[2]=bits2one4Broadcast(ip[2],8)
+        ipBroadcast[1]=bits2one4Broadcast(ip[1],bits4hosts-16)
     else:
-        ipBroadcast[3]=bits2one(ipBase[3],8)
-        ipBroadcast[2]=bits2one(ipBase[2],8)
-        ipBroadcast[1]=bits2one(ipBase[1],8)
-        ipBroadcast[0]=bits2one(ipBase[0],bits4hosts-24)
+        ipBroadcast[3]=bits2one(ip[3],8)
+        ipBroadcast[2]=bits2one(ip[2],8)
+        ipBroadcast[1]=bits2one(ip[1],8)
+        ipBroadcast[0]=bits2one(ip[0],bits4hosts-24)
     return ipBroadcast
 
 def bits4hostsInAPart(mascPart):    #masc=part0.part1.part2.part3, each part = 8bits
