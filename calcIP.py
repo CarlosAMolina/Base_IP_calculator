@@ -58,10 +58,10 @@ def makeBroadcast(ip, bits4hosts): # ip[=]list
         ipBroadcast[2]=bits2one4Broadcast(ip[2],8)
         ipBroadcast[1]=bits2one4Broadcast(ip[1],bits4hosts-16)
     else:
-        ipBroadcast[3]=bits2one(ip[3],8)
-        ipBroadcast[2]=bits2one(ip[2],8)
-        ipBroadcast[1]=bits2one(ip[1],8)
-        ipBroadcast[0]=bits2one(ip[0],bits4hosts-24)
+        ipBroadcast[3]=bits2one4Broadcast(ip[3],8)
+        ipBroadcast[2]=bits2one4Broadcast(ip[2],8)
+        ipBroadcast[1]=bits2one4Broadcast(ip[1],8)
+        ipBroadcast[0]=bits2one4Broadcast(ip[0],bits4hosts-24)
     return ipBroadcast
 
 def bits4hostsInAPart(mascPart):    #masc=part0.part1.part2.part3, each part = 8bits
