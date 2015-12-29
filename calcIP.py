@@ -7,21 +7,8 @@ def str2list(STRing):    # each element separed by dot
     List.append(int(parts[3]))
     return List        #  list=[0,1,10,11], int elements
 
-def listInt2Bin(listInt):
-    listBin = []
-    listBin.append(bin(listInt[0]))
-    listBin.append(bin(listInt[1]))
-    listBin.append(bin(listInt[2]))
-    listBin.append(bin(listInt[3]))
-    return listBin        #  listBin=[0,1,10,11]
-
-# def ipANDmasc(ip, masc):    # AND operator at each bit of int elements of lists 
-#     ipAndMasc = []
-#     ipAndMasc.append(ip[0]&masc[0])
-#     ipAndMasc.append(ip[1]&masc[1])
-#     ipAndMasc.append(ip[2]&masc[2])
-#     ipAndMasc.append(ip[3]&masc[3])
-#     return ipAndMasc
+def list2string(List):
+    return '%s.%s.%s.%s' %(List[0],List[1],List[2],List[3])
 
 def bits2cero4Base(numeroConvertir,numBits2cero):
     # converts to 0 x number of bits of numeroConvertir starting at rigth (x=numBits2cero)
@@ -77,9 +64,6 @@ def makeBroadcast(ip, bits4hosts): # ipBase[=]list
         ipBroadcast[0]=bits2one(ipBase[0],bits4hosts-24)
     return ipBroadcast
 
-def list2string(List):
-    return '%s.%s.%s.%s' %(List[0],List[1],List[2],List[3])
-
 def bits4hostsInAPart(mascPart):    #masc=part0.part1.part2.part3, each part = 8bits
     hostsBits = 0
     multi = 1    # searchs 0's at masc
@@ -99,6 +83,8 @@ def bits4hosts(mascList):     #masc=part0.part1.part2.part3, each part = 8bits
         hostsBits += bits4hostsInAPart(mascList[mascPart])
     return hostsBits
 
+
+
 import sys
 sintaxisOK = False
 while sintaxisOK == False:
@@ -114,8 +100,7 @@ while sintaxisOK == False:
         print 'sintaxis incorrecta'
 ipList = str2list(ip)
 mascList = str2list(masc)
-ipBin = listInt2Bin(ipList)
-mascBin = listInt2Bin(mascList)
+
 bits4Hosts = bits4hosts(mascList)
 masc = 32-bits4Hosts
 ipBaseList = makeBase(ipList,bits4Hosts) #ipBaseList = ipANDmasc(ipList,mascList)
