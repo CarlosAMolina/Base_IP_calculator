@@ -1,3 +1,4 @@
+#ip calculator
 def str2list(STRing):    # each element separed by dot
     parts = STRing.split('.')    # parts=['0','1','2','3']
     List = []
