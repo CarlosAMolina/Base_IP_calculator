@@ -90,10 +90,16 @@ def calculate_ip(ip_mask):
             bits4Hosts = bits4hosts(maskList)
             mask = 32-bits4Hosts
         ipBaseList = makeBase(ipList,bits4Hosts)
+        ipHost1List= list(ipBaseList)
+        ipHost1List[-1]=ipHost1List[-1]+1
         ipBroadcastList = makeBroadcast(ipList,bits4Hosts)
+        ipHostUltimoList= list(ipBroadcastList)
+        ipHostUltimoList[-1]=ipBroadcastList[-1]-1
         ipBase = list2string(ipBaseList)
+        ipHost1 = list2string(ipHost1List)
+        ipHostUltimo = list2string(ipHostUltimoList)
         ipBroadcast = list2string(ipBroadcastList)
-        return [ipBase, ipBroadcast, mask]
+        return [ipBase, ipHost1, ipHostUltimo, ipBroadcast, mask]
     except:
         print color('rojo', 'Invalid syntax')
 
@@ -101,6 +107,8 @@ def calculate_ip(ip_mask):
 ip_mask = raw_input('Write your ipv4/mask (e.g. 192.168.1.5/255.255.255.0 or 192.168.1.5/24): ')
 while ip_mask == "":
     ip_mask = raw_input('Write your ipv4/mask (e.g. 192.168.1.5/255.255.255.0 or 192.168.1.5/24): ')
-[ipBase, ipBroadcast, mask]=calculate_ip(ip_mask)
-print 'ip_broadcast: '+ str(ipBase)+'/'+str(mask)
-print 'ip_broadcast: '+ str(ipBroadcast)
+[ipBase, ipHost1, ipHostUltimo, ipBroadcast, mask]=calculate_ip(ip_mask)
+print 'base ip / mask: '+ str(ipBase)+'/'+str(mask)
+print 'first host ip: ' + str(ipHost1)
+print 'last host ip: ' + str(ipHostUltimo)
+print 'broadcast ip: '+ str(ipBroadcast)
