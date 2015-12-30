@@ -108,5 +108,5 @@ ipBroadcast = list2string(ipBroadcastList)
 print 'ip_base/mask: '+ str(ipBase) +'/'+str(mask)
 print 'ip_broadcast: '+ str(ipBroadcast)
 
-# webs 4 help:
+# webs 4 help
 #http://www.tutorialspoint.com/python/bitwise_operators_example.htm
