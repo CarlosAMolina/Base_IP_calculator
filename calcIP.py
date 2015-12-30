@@ -78,7 +78,6 @@ def bits4hosts(maskList):     #mask=part0.part1.part2.part3, each part = 8bits
     return hostsBits
 
 
-
 import sys
 sintaxisOK = False
 while sintaxisOK == False:
