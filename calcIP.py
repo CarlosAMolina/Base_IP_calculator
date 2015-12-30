@@ -58,7 +58,8 @@ def makeBroadcast(ip, bits4hosts): # ip[=]list
         ipBroadcast[0]=bits2one(ip[0],bits4hosts-24)
     return ipBroadcast
 
-def bits4hostsInAPart(maskPart):    #mask=part0.part1.part2.part3, each part = 8bits
+def bits4hostsInAPart(maskPart):    # maskPart = 8bits
+    # searchs number of 0's, started at rigth
     hostsBits = 0
     multi = 1    # searchs 0's at mask
     while (len(bin(multi))-2)<=8:    # bin(multi)='0b..'
@@ -77,35 +78,29 @@ def bits4hosts(maskList):     #mask=part0.part1.part2.part3, each part = 8bits
         hostsBits += bits4hostsInAPart(maskList[maskPart])
     return hostsBits
 
-
-import sys
-sintaxisOK = False
-while sintaxisOK == False:
-    ipMask = raw_input('Enter ip/mask (e.g. 192.168.1.5/255.255.255.0): ')
-    # if len(ipMask) == 0:
-    #     ipMask = '192.168.1.5/255.255.255.0'
-    #     # ipMask = '192.168.1.5/128.0.0.0'
+def calculate_ip(ip_mask):
     try:
-        ip = ipMask.split('/')[0]    # ip = '0.1.2.3'
-        mask = ipMask.split('/')[1]    # mask = 24
-        sintaxisOK = True
+        ip = ip_mask.split('/')[0]    # ip = '0.1.2.3'
+        mask = ip_mask.split('/')[1]    # mask = '24', string
+        ipList = str2list(ip)
+        if len(mask)<=2: # mask as CIDR
+            bits4Hosts = 32-int(mask)
+        else: # mask at decimal notation
+            maskList = str2list(mask)
+            bits4Hosts = bits4hosts(maskList)
+            mask = 32-bits4Hosts
+        ipBaseList = makeBase(ipList,bits4Hosts)
+        ipBroadcastList = makeBroadcast(ipList,bits4Hosts)
+        ipBase = list2string(ipBaseList)
+        ipBroadcast = list2string(ipBroadcastList)
+        return [ipBase, ipBroadcast, mask]
     except:
-        print 'incorrect sintax'
-ipList = str2list(ip)
-maskList = str2list(mask)
+        print color('rojo', 'Invalid syntax')
 
-bits4Hosts = bits4hosts(maskList)
-mask = 32-bits4Hosts
-ipBaseList = makeBase(ipList,bits4Hosts) #ipBaseList = ipANDmask(ipList,maskList)
-ipBroadcastList = makeBroadcast(ipList,bits4Hosts) 
-ipBase = list2string(ipBaseList)
-ipBroadcast = list2string(ipBroadcastList)
-# print 'ip: ' + str(ip)
-# print 'mask: ' + str(mask)
-# print 'ip base: '+str(ipBase)
-# print 'bits4Hosts :' + str(bits4Hosts)
-print 'ip_base/mask: '+ str(ipBase) +'/'+str(mask)
+
+ip_mask = raw_input('Write your ipv4/mask (e.g. 192.168.1.5/255.255.255.0 or 192.168.1.5/24): ')
+while ip_mask == "":
+    ip_mask = raw_input('Write your ipv4/mask (e.g. 192.168.1.5/255.255.255.0 or 192.168.1.5/24): ')
+[ipBase, ipBroadcast, mask]=calculate_ip(ip_mask)
+print 'ip_broadcast: '+ str(ipBase)+'/'+str(mask)
 print 'ip_broadcast: '+ str(ipBroadcast)
-
-# webs 4 help
-#http://www.tutorialspoint.com/python/bitwise_operators_example.htm
