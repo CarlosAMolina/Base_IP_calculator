@@ -1,4 +1,4 @@
-# Base_IP_calculator
+# IP_calculator
 Simple IP calculator using Python.  Just run the script ;)
 
 It calculates: base ip, broadcast ip and first and last network host.
